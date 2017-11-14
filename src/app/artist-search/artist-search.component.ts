@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./artist-search.component.sass'],
 })
 export class ArtistSearchComponent implements OnInit {
+  query: string;
 
   constructor() { }
 
