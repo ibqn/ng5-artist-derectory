@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatFormFieldModule,
+  MatSelectModule,
+  MatRadioModule,
   MatInputModule,
   MatIconModule,
   MatButtonModule,
@@ -30,6 +32,8 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
