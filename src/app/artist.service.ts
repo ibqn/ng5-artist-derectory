@@ -5,8 +5,12 @@ import { Artist } from './artist';
 import { map, tap, catchError } from 'rxjs/operators';
 
 
-export interface SearchResponse {
+interface SearchResponse {
   result: Artist[];
+}
+
+interface GetResponse {
+  result: Artist;
 }
 
 @Injectable()
@@ -16,9 +20,17 @@ export class ArtistService {
   searchArtists = (searchTerm: string): Observable<Artist[]> => {
     console.log('search');
     return this.http.get<SearchResponse>(`${this.url}/search/${searchTerm}`).pipe(
-      tap(_ => console.log('data')),
+      tap(_ => console.log('search artists received')),
       map((response: SearchResponse) => response.result),
       // catchError((error: any): Observable<any> => { console.log('error'); return; }),
+    );
+  }
+
+  getArtist = (artistId: string): Observable<Artist> => {
+    console.log('get artist');
+    return this.http.get<GetResponse>(`${this.url}/${artistId}`).pipe(
+      tap(_ => console.log('received artist')),
+      map((response: GetResponse) => response.result),
     );
   }
 
