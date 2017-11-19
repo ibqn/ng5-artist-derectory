@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatFormFieldModule,
@@ -18,6 +19,7 @@ import { ArtistDetailComponent } from './artist-detail/artist-detail.component';
 import { ArtistListComponent } from './artist-list/artist-list.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ArtistService } from './artist.service';
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -39,7 +42,9 @@ import { AppRoutingModule } from './app-routing.module';
     MatButtonModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    ArtistService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

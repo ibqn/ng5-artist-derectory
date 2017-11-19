@@ -22,6 +22,7 @@ export class ArtistSearchComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.query = '';
     this.artistOrder = ArtistOrder.Name;
     this.direction = 'asc';
   }
