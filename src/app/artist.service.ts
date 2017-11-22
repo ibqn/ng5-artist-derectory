@@ -17,9 +17,14 @@ interface GetResponse {
 export class ArtistService {
   private url = '/api/artist';
 
-  searchArtists = (searchTerm: string): Observable<Artist[]> => {
+  searchArtists = (
+    searchTerm: string,
+    field = 'name',
+    direction = 'asc'
+  ): Observable<Artist[]> => {
     console.log('search');
-    return this.http.get<SearchResponse>(`${this.url}/search/${searchTerm}`).pipe(
+    return this.http.get<SearchResponse>(
+      `${this.url}/search/${searchTerm}/?sort=${field}&order=${direction}`).pipe(
       tap(_ => console.log('search artists received')),
       map((response: SearchResponse) => response.result),
       // catchError((error: any): Observable<any> => { console.log('error'); return; }),

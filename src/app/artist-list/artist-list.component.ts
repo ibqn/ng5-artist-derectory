@@ -23,6 +23,18 @@ export class ArtistListComponent implements OnInit {
   private searchQuery: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private _query: string;
 
+  private _field: string;
+  private _direction: string;
+
+  @Input() set field(field: string) {
+    this._field = field;
+    this.artists$ = this.artistService.searchArtists(
+      this._query,
+      this._field,
+      this._direction
+    );
+  }
+
   @Input() set query(filter: string) {
     console.log(`f: '${filter}'`);
     this.searchQuery.next(filter);
