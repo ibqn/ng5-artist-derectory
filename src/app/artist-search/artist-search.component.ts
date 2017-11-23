@@ -1,15 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ArtistOrder, ArtistDirection } from './artist.enum';
 
-
-enum ArtistOrder {
-  Name = 'name',
-  Reknown = 'reknown',
-}
-
-enum ArtistDirection {
-  Ascending = 'asc',
-  Descending = 'desc',
-}
 
 @Component({
   selector: 'app-artist-search',
