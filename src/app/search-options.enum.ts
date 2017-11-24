@@ -1,9 +1,9 @@
-export enum ArtistOrder {
+export enum SearchField {
   Name = 'name',
   Reknown = 'reknown',
 }
 
-export enum ArtistDirection {
+export enum SearchOrder {
   Ascending = 'asc',
   Descending = 'desc',
 }

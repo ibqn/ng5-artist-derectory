@@ -11,7 +11,7 @@ import {
 
 import { Artist } from '../artist';
 import { ArtistService } from '../artist.service';
-import { ArtistDirection, ArtistOrder } from '../artist-search/artist.enum';
+import { SearchOrder, SearchField } from '../search-options.enum';
 
 
 @Component({
@@ -23,65 +23,38 @@ export class ArtistListComponent implements OnInit {
   artists$: Observable<Artist[]>;
 
   private searchQuery = new BehaviorSubject<string>('');
-  private searchDirection = new BehaviorSubject<ArtistDirection>(ArtistDirection.Ascending);
-  private searchField = new BehaviorSubject<ArtistOrder>(ArtistOrder.Name);
+  private searchDirection = new BehaviorSubject<SearchOrder>(SearchOrder.Ascending);
+  private searchField = new BehaviorSubject<SearchField>(SearchField.Name);
 
-  /*
-  private _query: string;
-
-  private _field: string;
-  private _direction: string;
-  */
-
-  @Input() set field(field: ArtistOrder) {
+  @Input() set field(field: SearchField) {
     this.searchField.next(field);
   }
 
-  @Input() set direction(direction: ArtistDirection) {
+  @Input() set direction(direction: SearchOrder) {
     this.searchDirection.next(direction);
   }
 
-  /*
-  private populateArtists = () => this.artists$ = this.artistService.searchArtists(
-    this._query,
-    this._field,
-    this._direction
-  )*/
-
   @Input() set query(filter: string) {
-    console.log(`f: '${filter}'`);
+    console.log(`query filter: '${filter}'`);
     this.searchQuery.next(filter);
   }
-  // get query(): string { return this._query; }
 
   constructor(private artistService: ArtistService) { }
 
   getUrl = (item): string => `/assets/images/${ item.shortname }_tn.jpg`;
 
   ngOnInit() {
-    // this.searchQuery.subscribe(query => this._query = query);
-
     const searchObs = this.searchQuery.pipe(
-      tap(_ => console.log('test')),
-      debounceTime(300),
-      distinctUntilChanged()
-    );
-    // const fieldObs = this.searchField.asObservable();
-    // const directionObs = this.searchDirection.asObservable();
-    this.artists$ = this.searchField.pipe(
-      combineLatest(this.searchDirection, searchObs, (field, direction, query) => {
-        return this.artistService.searchArtists(query, field, direction);
-      }),
-      switchMap((res: Observable<Artist[]>) => res),
-    );
-
-    /*
-    this.artists$ = this.searchQuery.pipe(
-      tap(_ => console.log('test')),
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((query: string) => this.artistService.searchArtists(query)),
+      tap(_ => console.log('search query')),
     );
-    */
+    this.artists$ = this.searchField.pipe(
+      // combine three observables
+      combineLatest(this.searchDirection, searchObs, (field, direction, query) =>
+        this.artistService.searchArtists(query, field, direction)
+      ),
+      switchMap((res: Observable<Artist[]>) => res),
+    );
   }
 }

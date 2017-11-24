@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Artist } from './artist';
 import { map, tap, catchError } from 'rxjs/operators';
+import { SearchField, SearchOrder } from './search-options.enum';
 
 
 interface SearchResponse {
@@ -19,13 +20,13 @@ export class ArtistService {
 
   searchArtists = (
     searchTerm: string,
-    field = 'name',
-    direction = 'asc'
+    field = SearchField.Name,
+    direction = SearchOrder.Ascending
   ): Observable<Artist[]> => {
-    console.log('search');
+    console.log('get method');
     return this.http.get<SearchResponse>(
       `${this.url}/search/${searchTerm}/?sort=${field}&order=${direction}`).pipe(
-      tap(_ => console.log('search artists received')),
+      tap(_ => console.log('artists received')),
       map((response: SearchResponse) => response.result),
       // catchError((error: any): Observable<any> => { console.log('error'); return; }),
     );

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArtistOrder, ArtistDirection } from './artist.enum';
+import { SearchOrder, SearchField } from '../search-options.enum';
 
 
 @Component({
@@ -9,19 +9,19 @@ import { ArtistOrder, ArtistDirection } from './artist.enum';
 })
 export class ArtistSearchComponent implements OnInit {
   // bind enum types
-  ArtistOrder = ArtistOrder;
-  ArtistDirection = ArtistDirection;
+  SearchField = SearchField;
+  SearchOrder = SearchOrder;
 
-  query: string;
-  direction: string;
-  artistOrder: ArtistOrder;
+  searchQuery: string;
+  searchOrder: SearchOrder;
+  searchField: SearchField;
 
   constructor() { }
 
   ngOnInit() {
-    this.query = '';
-    this.artistOrder = ArtistOrder.Name;
-    this.direction = ArtistDirection.Ascending;
+    this.searchQuery = '';
+    this.searchField = SearchField.Name;
+    this.searchOrder = SearchOrder.Ascending;
   }
 
 }
