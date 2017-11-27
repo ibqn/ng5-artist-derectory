@@ -2,23 +2,19 @@
 .artist-list
   line-height: 100%
 
+  .list-group-item
+    padding: .3rem 1.5rem
+    cursor: pointer
 
-.artist-list .list-group-item
-  padding: .3rem 1.5rem
+  .list-group-item:first-child
+    border-top: none
+    border-radius: 0
 
+  .list-group-item img
+    width: 70px
 
-.artist-list .list-group-item:first-child
-  border-top: none
-  border-radius: 0
+  .list-group-item:hover
+    background-color: #f8f9fa
 
-
-.artist-list .list-group-item img
-  width: 70px
-
-
-.artist-list .list-group-item:hover
-  background-color: #f8f9fa
-
-
-.artist-list a
-  text-decoration: none
+  a
+    text-decoration: none

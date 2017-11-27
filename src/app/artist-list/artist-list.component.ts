@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {
@@ -21,6 +23,7 @@ import { SearchOrder, SearchField } from '../search-options.enum';
 })
 export class ArtistListComponent implements OnInit {
   artists$: Observable<Artist[]>;
+  private length: number;
 
   private searchQuery = new BehaviorSubject<string>('');
   private searchDirection = new BehaviorSubject<SearchOrder>(SearchOrder.Ascending);
@@ -30,8 +33,16 @@ export class ArtistListComponent implements OnInit {
     this.searchField.next(field);
   }
 
+  get field() {
+    return this.searchField.getValue();
+  }
+
   @Input() set direction(direction: SearchOrder) {
     this.searchDirection.next(direction);
+  }
+
+  get direction() {
+    return this.searchDirection.getValue();
   }
 
   @Input() set query(filter: string) {
@@ -39,9 +50,34 @@ export class ArtistListComponent implements OnInit {
     this.searchQuery.next(filter);
   }
 
-  constructor(private artistService: ArtistService) { }
+  get query() {
+    return this.searchQuery.getValue();
+  }
+
+  constructor(
+    private artistService: ArtistService,
+    private router: Router,
+  ) { }
 
   getUrl = (item): string => `/assets/images/${ item.shortname }_tn.jpg`;
+
+  gotoItem = (id: string) => {
+    console.log(`index is ${id} of ${this.length}`);
+    const params = {
+      query: this.query,
+      order: this.direction,
+      field: this.field,
+    };
+    /*
+    if (id <= 0) {
+      params['prev'] = false;
+    }
+    if (id >= this.length - 1) {
+      params['next'] = false;
+    }
+    */
+    this.router.navigate(['detail', id, params]);
+  }
 
   ngOnInit() {
     const searchObs = this.searchQuery.pipe(
@@ -56,5 +92,8 @@ export class ArtistListComponent implements OnInit {
       ),
       switchMap((res: Observable<Artist[]>) => res),
     );
+
+    this.length = 0;
+    this.artists$.subscribe(res => this.length = res.length);
   }
 }
