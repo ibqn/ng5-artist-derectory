@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchOrder, SearchField } from '../search-options.enum';
+import { ArtistService } from '../artist.service';
 
 
 @Component({
@@ -12,16 +13,33 @@ export class ArtistSearchComponent implements OnInit {
   SearchField = SearchField;
   SearchOrder = SearchOrder;
 
-  searchQuery: string;
-  searchOrder: SearchOrder;
-  searchField: SearchField;
+  get searchQuery(): string {
+    return this.artistService.query;
+  }
+  set searchQuery(query: string) {
+    this.artistService.query = query;
+  }
 
-  constructor() { }
+  set searchOrder(order: SearchOrder) {
+    this.artistService.order = order;
+  }
+  get searchOrder(): SearchOrder {
+    return this.artistService.order;
+  }
+
+  set searchField(field: SearchField) {
+    // console.log(`search field set '${field}'`);
+    this.artistService.field = field;
+  }
+  get searchField(): SearchField {
+    return this.artistService.field;
+  }
+
+  constructor(private artistService: ArtistService) { }
 
   ngOnInit() {
     this.searchQuery = '';
     this.searchField = SearchField.Name;
     this.searchOrder = SearchOrder.Ascending;
   }
-
 }

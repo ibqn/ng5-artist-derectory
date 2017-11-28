@@ -7,3 +7,9 @@ export class Artist {
     public bio: string,
   ) { }
 }
+
+export interface ArtistItem {
+  artist: Artist;
+  prevId: string;
+  nextId: string;
+}

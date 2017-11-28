@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Artist } from '../artist';
-import { switchMap } from 'rxjs/operators/switchMap';
+import { Artist, ArtistItem } from '../artist';
+import { switchMap } from 'rxjs/operators';
 import { ArtistService } from '../artist.service';
 
 
@@ -13,7 +13,7 @@ import { ArtistService } from '../artist.service';
   styleUrls: ['./artist-detail.component.sass'],
 })
 export class ArtistDetailComponent implements OnInit {
-  artist$: Observable<Artist>;
+  artistItem$: Observable<ArtistItem>;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +23,7 @@ export class ArtistDetailComponent implements OnInit {
   getUrl = (artist: Artist): string => `/assets/images/${artist.shortname}_tn.jpg`;
 
   ngOnInit() {
-    this.artist$ = this.route.paramMap.pipe(
+    this.artistItem$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         const artistId = params.get('id');
         return this.artists.getArtist(artistId);

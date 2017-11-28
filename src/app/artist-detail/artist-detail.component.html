@@ -1,25 +1,27 @@
 <div class="container">
   <div class="row">
     <div class="col-12 mt-3">
-        <div class="card" *ngIf="artist$ | async as artist">
+        <div class="card" *ngIf="artistItem$ | async as item">
           <div class="card-header d-flex align-items-start justify-content-between">
-            <h1 class="card-title my-0">{{ artist.name }}</h1>
+            <h1 class="card-title my-0">{{ item.artist.name }}</h1>
             <nav class="btn-group">
               <a class="btn btn-sm btn-secondary"
-                href="#/detail/">&lt;</a>
+                [class.disabled]="item.prevId===null"
+                routerLink="/detail/{{ item.prevId }}">&lt;</a>
               <a class="btn btn-sm btn-secondary"
                 routerLink="/">&bull;</a>
               <a class="btn btn-sm btn-secondary"
-                href="#/detail/">&gt;</a>
+                [class.disabled]="item.nextId===null"
+                routerLink="/detail/{{ item.nextId }}">&gt;</a>
             </nav>
           </div>
           <div class="card-body"
             ng-model="artists">
-            <h4 class="card-title text-dark mt-0">{{ artist.reknown }}</h4>
+            <h4 class="card-title text-dark mt-0">{{ item.artist.reknown }}</h4>
             <img class="float-left mr-2 rounded"
-              [src]="this.getUrl(artist)"
-              alt="Photo of {{ artist.name }}">
-            <div class="card-text text-secondary">{{ artist.bio }}</div>
+              [src]="this.getUrl(item.artist)"
+              alt="Photo of {{ item.artist.name }}">
+            <div class="card-text text-secondary">{{ item.artist.bio }}</div>
           </div>
         </div>
     </div>

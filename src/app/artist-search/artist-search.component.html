@@ -26,7 +26,7 @@
                 <div class="col">
 
                   <mat-form-field class="artist-order w-100">
-                    <mat-select placeholder="Order search results by" [(value)]="searchField">
+                    <mat-select placeholder="Order search results by" [(ngModel)]="this.searchField">
                       <mat-option value="{{ SearchField.Name }}">Name</mat-option>
                       <mat-option value="{{ SearchField.Reknown }}">Reknown</mat-option>
                     </mat-select>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-5 col-md-4 direction">
 
-                  <mat-radio-group [(ngModel)]="searchOrder">
+                  <mat-radio-group [(ngModel)]="this.searchOrder">
                     <mat-radio-button value="{{ SearchOrder.Ascending }}">asc</mat-radio-button>
                     <mat-radio-button value="{{ SearchOrder.Descending }}">desc</mat-radio-button>
                   </mat-radio-group>
@@ -45,4 +45,4 @@
     </div>
   </div>
 </div>
-<app-artist-list [query]="this.searchQuery" [direction]="this.searchOrder" [field]="this.searchField"></app-artist-list>
+<app-artist-list></app-artist-list>
