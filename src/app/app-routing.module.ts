@@ -6,8 +6,20 @@ import { ArtistDetailComponent } from './artist-detail/artist-detail.component';
 
 
 const routes: Routes = [
-  { path: '', component: ArtistSearchComponent },
-  { path: 'detail/:id', component: ArtistDetailComponent },
+  {
+    path: '',
+    component: ArtistSearchComponent,
+    data: {
+      animation: 'search'
+    }
+  },
+  {
+    path: 'detail/:id',
+    component: ArtistDetailComponent,
+    data: {
+      animation: 'detail'
+    }
+   },
 ];
 
 @NgModule({

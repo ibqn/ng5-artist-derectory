@@ -5,4 +5,7 @@
   </h1>
   <img width="70" src="/assets/logo/zhenq.svg">
 </div>
-<router-outlet></router-outlet>
+<!-- Begin page content -->
+<main role="main" [@routerAnimations]="prepareRouteTransition(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</main>
